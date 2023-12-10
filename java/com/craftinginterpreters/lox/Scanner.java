@@ -71,12 +71,12 @@ class Scanner {
             break;
 
         case '"': string(); break;
-            
+
         default:
             if (isDigit(c)) {
                 number();
             } else if (isAlpha(c)) {
-                identifier();
+                identifier(c);
             } else {
                 Lox.error(line, "Unexpected character.");
             }
@@ -89,7 +89,7 @@ class Scanner {
             advance();
         }
 
-        String text = soure.substring(start, current);
+        String text = source.substring(start, current);
         TokenType type = keywords.get(text);
         if (type == null) {
             type = IDENTIFIER;
@@ -99,7 +99,7 @@ class Scanner {
     }
 
     private boolean isAlphaNumeric(char c) {
-        return isNumeric(c) || isAlpha(c);
+        return isDigit(c) || isAlpha(c);
     }
 
     private boolean isAlpha(char c) {
@@ -140,9 +140,9 @@ class Scanner {
             }
         }
 
-        addToken(NUMBER, Double.parseDouble(source.substring(start, current)))
+        addToken(NUMBER, Double.parseDouble(source.substring(start, current)));
     }
-    
+
     private char peek() {
         if (isAtEnd()) return '\0';
 
