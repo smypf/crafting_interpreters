@@ -12,13 +12,13 @@ class AstPrinter implements Expr.Visitor<String> {
 
     @Override
     public String visitGroupingExpr(Expr.Grouping expr) {
-        return parenthesize("group, expr.expression);
+        return parenthesize("group", expr.expression);
     }
 
     @Override
-    public String visitGroupingExpr(Expr.Literal expr) {
+    public String visitLiteralExpr(Expr.Literal expr) {
         if (expr.value == null) return "nil";
-        return value.toString();
+        return expr.value.toString();
     }
 
     @Override
@@ -52,6 +52,7 @@ class AstPrinter implements Expr.Visitor<String> {
                 new Expr.Literal(45.67)
             )
         );
+
+        System.out.println(new AstPrinter().print(expression));
     }
 }
-                                                        
