@@ -1,0 +1,5 @@
+build:
+  find . -name '*.java' -exec javac -d out {} \;
+
+run:
+  java -cp './out/' com.craftinginterpreters.lox.Lox
